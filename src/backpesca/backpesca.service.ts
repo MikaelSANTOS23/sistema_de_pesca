@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotAcceptableException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BackpescaDto } from './backpesca.dto';
 
 @Injectable()
@@ -38,7 +33,21 @@ export class BackpescaService {
 
     throw new HttpException(
       'backpesca with id ${backpesca.id} not found',
-      HttpStatus.BAD_REQUEST
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+
+  remove(id: string) {
+    const backpescaIndex = this.backpescas.findIndex((t) => t.id === id);
+
+    if (backpescaIndex >= 0) {
+      this.backpescas.splice(backpescaIndex, 1);
+      return;
+    }
+
+    throw new HttpException(
+      'Task with id ${id} not found',
+      HttpStatus.BAD_REQUEST,
     );
   }
 }

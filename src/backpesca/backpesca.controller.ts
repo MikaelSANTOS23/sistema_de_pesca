@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { BackpescaDto } from './backpesca.dto';
 import { BackpescaService } from './backpesca.service';
 
@@ -19,5 +19,10 @@ export class BackpescaController {
   @Put()
   update(@Body() backpesca: BackpescaDto) {
     this.backpescaService.update(backpesca);
+  }
+
+  @Delete('/:id')
+  remove(@Param('id') id: string){
+    return this.backpescaService.remove(id);
   }
 }
